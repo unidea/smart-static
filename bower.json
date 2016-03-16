@@ -1,0 +1,22 @@
+{
+  "name": "smart-static",
+  "description": "Tool for building static website using HTML, Javascript and SASS.",
+  "main": "index.html",
+  "authors": [
+    "Marc-Antoine Duhaime (Unidea inc.)"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}
