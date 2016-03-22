@@ -3,35 +3,36 @@
 // Gulp related requirements
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const cache = require('gulp-cached');
 const concat = require('gulp-concat');
-const changed = require('gulp-changed');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
-const del = require('del');
 const browserSync = require('browser-sync').create();
 const fileInclude = require('gulp-file-include');
 const gutil = require('gulp-util');
+const fs = require('fs-extra');
 
-const DEV = './development';
-const BUILD = './_build';
+const BASES = {
+  dev: './development',
+  build: './_build'
+};
 
 // Commun paths (glob) for files and extensions.
 const PATHS = {
   copied: [
-    `${DEV}/bower_components`,
-    `${DEV}/fonts`,
-    `${DEV}/vendor`
+    `${BASES.dev}/bower_components`,
+    `${BASES.dev}/fonts`,
+    `${BASES.dev}/vendor`
   ],
-  files: [`${DEV}/**/*.{html,xml,json}`],
+  files: [`${BASES.dev}/**/*.{html,xml,json}`],
   folders: [
-    `${DEV}/css{,/**}`,
-    `${DEV}/js{,/**}`,
-    `${DEV}/scss{,/**}`
+    `${BASES.dev}/css{,/**}`,
+    `${BASES.dev}/js{,/**}`,
+    `${BASES.dev}/scss{,/**}`
   ],
-  partials: [`${DEV}/partials{,/**}`],
-  scripts: [`${DEV}/js/**/*.js`],
-  styles: [`${DEV}/scss/**/*.scss`]
+  images: [`${BASES.dev}/images{,/**}`],
+  partials: [`${BASES.dev}/partials{,/**}`],
+  scripts: [`${BASES.dev}/js/**/*.js`],
+  styles: [`${BASES.dev}/scss/**/*.scss`]
 };
 
 function negativizeGlobs (globs) {
@@ -41,31 +42,43 @@ function negativizeGlobs (globs) {
     }
     return glob;
   });
-}
+};
 
 // Delete the preview folder.
-function deleteBuild () {
-  return del(BUILD);
-}
+function deleteBuild (callback) {
+  fs.remove(BASES.build, callback);
+};
 
-// Process Files and return the stream.
+// Process Images and return the stream.
+function copyImages (callback) {
+  let src = `${BASES.dev}/images`;
+  let dest = `${BASES.build}/images`
+
+  fs.copy(src, dest, {
+    clobber: true,
+    preserveTimestamps: true
+  }, callback);
+};
+
+// Copy Files and return the stream.
 function copyFiles () {
   return gulp.src(PATHS.copied)
-    .pipe(gulp.dest(BUILD));
+    .pipe(gulp.dest(BASES.build));
 };
 
 // Process Files and return the stream.
 function processFiles () {
-  let path = [`${DEV}/**/*`].concat(
+  let path = [`${BASES.dev}/**/*`].concat(
     negativizeGlobs(PATHS.copied),
     negativizeGlobs(PATHS.folders),
+    negativizeGlobs(PATHS.images),
     negativizeGlobs(PATHS.partials)
   );
 
   return gulp.src(path)
-    .pipe(changed(DEV))
+    //.pipe(changed(BASES.build))
     .pipe(fileInclude())
-    .pipe(gulp.dest(BUILD));
+    .pipe(gulp.dest(BASES.build));
 };
 
 // Process JS files and return the stream.
@@ -76,7 +89,7 @@ function processScripts () {
     .pipe(uglify())
     .pipe(concat('all.min.js'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(`${BUILD}/js`));
+    .pipe(gulp.dest(`${BASES.build}/js`));
 };
 
 // Process SCSS files and return the stream.
@@ -86,15 +99,24 @@ function processStyles () {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(`${BUILD}/css`))
+    .pipe(gulp.dest(`${BASES.build}/css`))
     .pipe(browserSync.stream());
+};
+
+function processImages () {
+  return gulp.src(`${BASES.dev}/images/**/*.{png,jpg,jpeg,gif,svg}`)
+    .pipe(optipng({ optimizationLevel: 3 })())
+    .pipe(pngquant({ quality: "65-80", speed: 4 })())
+    .pipe(imageminMozjpeg({ quality: 70 })())
+    .pipe(gulp.dest(`${BASES.build}/images`));
 };
 
 // Watch Files, SCSS and JS for changes.
 function watchChanges () {
-  let path = [`${DEV}/**/*.{html,xml,json}`].concat(
+  let path = [`${BASES.dev}/**/*.{html,xml,json}`].concat(
     negativizeGlobs(PATHS.copied),
-    negativizeGlobs(PATHS.folders)
+    negativizeGlobs(PATHS.folders),
+    negativizeGlobs(PATHS.images)
   );
 
   let watcher = gulp.watch(path, gulp.series(processFiles, browserSync.reload));
@@ -113,7 +135,7 @@ function startServer (callback) {
     open: false,
     reloadDebounce: 2000,
     server: {
-      baseDir: BUILD,
+      baseDir: BASES.build,
       index: "index.html",
     }
   }, callback);
@@ -122,10 +144,14 @@ function startServer (callback) {
 // Task for cleaning.
 gulp.task('clean', deleteBuild);
 
+// Task for processing images.
+gulp.task('images', copyImages);
+
 // Task for building a preview of the site, ready for deployment.
 gulp.task('build', gulp.series(
   deleteBuild,
   copyFiles,
+  copyImages,
   gulp.parallel(processFiles, processScripts, processStyles)
 ));
 
@@ -134,6 +160,6 @@ gulp.task('serve', gulp.series('build', startServer, watchChanges));
 
 // Gult default task
 gulp.task('default', (callback) => {
-  gutil.log("Please use gulp {clean|build|serve}");
+  gutil.log("Please use gulp {clean|build|images|serve}");
   callback();
 });

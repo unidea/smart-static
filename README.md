@@ -3,6 +3,9 @@
 **smart-html** is tool for building static website using HTML, Javascript and SASS.
 Behind the scene, **Gulp** provides tasks that will help you during the development process.
 
+This is a simple static site generator which is perfect for a personal, blog or documentation site.
+It is similar to other static site generators in that it takes your Markdown content, renders it, optimises it and creates a production-ready site that can be served by Nginx, Apache or another web server.
+
 #### Key features
 
 1. Development server and browser reload on change.
