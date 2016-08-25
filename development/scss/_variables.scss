@@ -1,7 +1,113 @@
 //
+// Icon path
+// -----------------------------------------------------------------------------
+//
+
+$icon-font-path:  "http://localhost:3000/bower_components/bootstrap-sass/assets/fonts/bootstrap/" !default;
+
+
+//
 // Colors
 // -----------------------------------------------------------------------------
 //
 
-$theme-primary: #F05F40;
-$theme-dark: #222;
+$theme-red: #E02726; //#F05F40;
+$theme-green: #49773B;
+$theme-yellow: #F2E999;
+$theme-brown: #392E2C; //#222;
+$theme-blue: #3a5975;
+$theme-white: #fff;
+
+// Bootstrap
+
+$gray-base: #111 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default;
+$gray-dark : #85794d;
+$gray: #608d4e;
+$gray-light: #95a65b;
+$gray-lighter : #abc147;
+
+$brand-primary: $theme-brown !default;
+$brand-success: $theme-green !default;
+$brand-info: $theme-blue !default;
+$brand-warning: $theme-yellow !default;
+$brand-danger: $theme-red !default;
+
+
+//
+// Scaffolding
+// -----------------------------------------------------------------------------
+//
+
+//$body-bg: #ced9bc !default;
+$body-bg: #fff !default;
+$text-color: $theme-brown !default;
+$link-color: $theme-blue !default;
+
+
+//
+// Typography
+// -----------------------------------------------------------------------------
+//
+
+
+//<link href='https://fonts.googleapis.com/css?family=Rouge+Script' rel='stylesheet' type='text/css'>
+//<link href='https://fonts.googleapis.com/css?family=Lora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+//<link href='https://fonts.googleapis.com/css?family=Vidaloka' rel='stylesheet' type='text/css'>
+//<link href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+//
+
+$font-family-sans-serif:  "Roboto", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       "Vidaloka", "Times New Roman", Times, serif !default;
+
+$font-size-base:          16px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
+
+$font-size-h1:            floor(($font-size-base * 4.00)) !default; // ~36px
+$font-size-h2:            floor(($font-size-base * 3.50)) !default; // ~30px
+$font-size-h3:            ceil(($font-size-base * 3.00)) !default; // ~24px
+
+$font-size-h4:            ceil(($font-size-base * 1.5)) !default; // ~18px
+
+$headings-font-family:    "Lora" !default;
+$headings-font-weight:    400 !default;
+$headings-line-height:    1.1 !default;
+$headings-color:          inherit !default;
+
+
+//
+// Components
+// -----------------------------------------------------------------------------
+//
+
+$border-radius-base: 2px !default;
+$border-radius-large: 3px !default;
+$border-radius-small: 1px !default;
+
+
+//
+// Buttons
+// -----------------------------------------------------------------------------
+//
+
+$btn-border-radius-base: 10px !default;
+$btn-border-radius-large: 20px !default;
+$btn-border-radius-small: 5px !default;
+
+
+//
+// Forms
+// -----------------------------------------------------------------------------
+//
+
+$input-border-focus: #66afe9 !default;
+$input-color-placeholder: #999 !default;
+
+
+//
+// Grid System
+// -----------------------------------------------------------------------------
+//
+
+$grid-gutter-width: 40px !default;

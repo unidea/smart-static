@@ -1,0 +1,107 @@
+.navbar-default {
+  @include nav-font(400);
+  @include font-aspect(13px, 13px, $theme-brown);
+  @include transition(all 0.35s);
+
+  border: 0 !important;
+
+  // Style on top
+  &.affix-top {
+      background: $theme-red;
+      padding: 15px 0;
+  }
+
+  &.affix {
+      background: transparentize($theme-brown, 0.25);
+      padding: 5px 0;
+      padding: 0;
+  }
+
+  .navbar-header {
+    color: $theme-brown;
+
+    &:hover,
+    &:focus {
+      color: $link-color;
+    }
+  }
+
+  .navbar-brand {
+    padding: 5px;
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  .navbar-toggle {
+    background: $theme-yellow !important;
+    border-color: $theme-yellow;
+
+    &.collapsed {
+      border-color: $theme-yellow;
+      background: transparent !important;
+    }
+    .icon-bar { background-color: $theme-green; }
+  }
+
+
+  .navbar-collapse {
+    border: 0 !important;
+    border-color: $theme-red;
+
+    &.collapse.in {
+      ul.navbar-nav {
+        margin: 0 -20px;
+      }
+    }
+  }
+
+  ul.navbar-nav > li {
+    text-align: center;
+
+    a {
+      text-transform: uppercase;
+      color: $theme-yellow;
+      margin: 0;
+      padding: 15px 10px;
+
+      &:hover {
+        color: $theme-brown;
+        background-color: $theme-yellow;
+      }
+
+      &:focus,
+      &:active {
+        color: $theme-yellow;
+      }
+    }
+
+    &.active {
+      a {
+        color: $theme-green;
+        background-color: $theme-yellow;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &:visited {
+          color: $theme-yellow;
+          background-color: $theme-green;
+
+        }
+      }
+    }
+  }
+
+  @media(min-width: $screen-sm-min) {
+
+    @include transition(background .5s ease-in-out,padding .5s ease-in-out);
+
+    &.affix-top {
+        background: $theme-red;
+        padding: 30px 0;
+    }
+  }
+}

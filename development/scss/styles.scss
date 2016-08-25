@@ -1,5 +1,5 @@
 //
-// Custom functions, variables and mixins
+// Custom variables and mixins
 // -----------------------------------------------------------------------------
 //
 
@@ -14,6 +14,8 @@
 //
 
 @import "../bower_components/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+@import "navigation";
+@import "font-awesome-fix";
 
 
 //
@@ -21,165 +23,155 @@
 // -----------------------------------------------------------------------------
 //
 
-
-/*!
- * Start Bootstrap - Creative Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-// Global Components
 html,
 body {
   height: 100%;
   width: 100%;
+  background:url('../images/pattern.png') fixed repeat top left / 240px 240px;
 }
 
-body {
-  @include serif-font;
+h1, h2, h3 {
+  font-family: "Rouge Script", sans-serif !important;
 }
 
-hr {
-  border-color: $theme-primary;
-  border-width: 3px;
-  max-width: 50px;
-}
+hr.ornament {
 
-hr.light {
-  border-color: white;
+  width: 33%;
+  min-width: 180px;
+  border-width: 1px;
+  margin: 20px auto 30px auto !important;
+
+  &:after {
+    content: "";
+    display: block;
+    width: auto;
+    height: 20px; /* height of the ornament */
+    position: relative;
+    top: -10px; /* half the height of the ornament */
+  }
+  &.dark {
+    border-color: $theme-brown;
+    &:after {
+      background: url('../images/ornament-hr-dark.png') no-repeat top center / 150px 20px;
+    }
+  }
+  &.pale {
+    border-color: $theme-yellow;
+    &:after {
+      background: url('../images/ornament-hr-pale.png') no-repeat top center / 150px 20px;
+    }
+  }
 }
 
 a {
-  @include transition-all;
-  color: $theme-primary;
+  @include transition();
+
+  color: $theme-red;
+
   &:hover,
   &:focus {
-    color: darken($theme-primary, 10%);
+    color: $theme-blue;
+    text-decoration: none !important;
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @include sans-serif-font;
-}
+//
+// Page Section
+// -----------------------------------------------------------------------------
+//
 
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
+.page-section {
+  @include relative-box();
+  padding: 70px 0;
 
-.bg-primary {
-  background-color: $theme-primary;
-}
-
-.bg-dark {
-  background-color: $theme-dark;
-  color: white;
-}
-
-.text-faded {
-  color: rgba(white, 70%);
-}
-
-section {
-  padding: 100px 0;
-}
-
-aside {
-  padding: 50px 0;
-}
-
-.no-padding {
-  padding: 0;
-}
-
-// Navigation
-
-.navbar-default {
-  background-color: white;
-  border-color: rgba($theme-dark, 5%);
-  @include sans-serif-font;
-  @include transition-all;
-  .navbar-header .navbar-brand {
-    color: $theme-primary;
-    @include sans-serif-font;
-    font-weight: 700;
-    text-transform: uppercase;
-    &:hover,
-    &:focus {
-      color: darken($theme-primary, 10%);
-    }
+  &.first-section {
+    padding-top: 160px;
   }
-  .nav {
-    > li {
-      > a,
-      > a:focus {
-        text-transform: uppercase;
-        font-weight: 700;
-        font-size: 13px;
-        color: $theme-dark;
-        &:hover {
-          color: $theme-primary;
-        }
-      }
-      &.active {
-        > a,
-        > a:focus {
-          color: $theme-primary !important;
-          background-color: transparent;
-          &:hover {
-            background-color: transparent;
-          }
-        }
-      }
+
+  &.no-padding {
+    padding: 0 !important;
+  }
+
+  .section-heading {
+    margin-top: 0;
+  }
+
+}
+
+//
+// Sections
+// -----------------------------------------------------------------------------
+//
+
+.section {
+
+  &-ornament {
+    @include relative-box();
+    padding: 100px 0;
+    background-position: center 15px, center bottom;
+    background-size: 250px auto;
+    background-repeat: no-repeat;
+  }
+
+  &-ornament-dark {
+    background-image: url('../images/ornament-top-dark.png'), url('../images/ornament-bottom-dark.png');
+  }
+
+  &-ornament-pale {
+    background-image: url('../images/ornament-top-pale.png'), url('../images/ornament-bottom-pale.png');
+  }
+
+  &-red {
+    color: $theme-yellow;
+    background-color: $theme-red;
+    a {
+      color: $theme-brown;
+      &:hover { color: $theme-yellow; }
     }
   }
 
-  @media (min-width: 768px) {
-    background-color: transparent;
-    border-color: rgba(white, 30%);
-    .navbar-header .navbar-brand {
-      color: rgba(white, 70%);
-      &:hover,
-      &:focus {
-        color: white;
-      }
+  &-green {
+    color: $theme-white;
+    background-color: $theme-green;
+    a {
+      color: $theme-brown;
+      &:hover { color: $theme-yellow; }
     }
-    .nav > li > a,
-    .nav > li > a:focus {
-      color: rgba(white, 70%);
-      &:hover {
-        color: white;
-      }
+  }
+
+  &-yellow {
+    color: $theme-brown;
+    background-color: $theme-yellow;
+    a {
+      color: $theme-green;
+      &:hover { color: $theme-red; }
     }
-    &.affix {
-      background-color: white;
-      border-color: rgba($theme-dark, 5%);
-      .navbar-header .navbar-brand {
-        color: $theme-primary;
-        font-size: 14px;
-        &:hover,
-        &:focus {
-          color: darken($theme-primary, 10%);
-        }
-      }
-      .nav > li > a,
-      .nav > li > a:focus {
-        color: $theme-dark;
-        &:hover {
-          color: $theme-primary;
-        }
-      }
+  }
+
+  &-brown {
+    color: $theme-white;
+    background-color: $theme-brown;
+    a {
+      color: $theme-yellow;
+      &:hover { color: $theme-green; }
+    }
+  }
+
+  &-white {
+    color: $theme-green;
+    background-color: $theme-white;
+    a {
+      color: $theme-red;
+      &:hover { color: $theme-brown; }
     }
   }
 }
 
+
+//
 // Homepage Header
+// -----------------------------------------------------------------------------
+//
 
 header {
   position: relative;
@@ -187,121 +179,175 @@ header {
   min-height: auto;
   @include background-cover;
   background-position: center;
-  background-image: url('../images/header.jpg');
-  text-align: center;
-  color: white;
+  background-image: url('../images/gallery/pepe-trattoria-03.jpg');
+
   .header-content {
-    position: relative;
-    text-align: center;
+    @include relative-box();
+
     padding: 100px 15px 100px;
     width: 100%;
+
     .header-content-inner {
+      text-align: center;
+
       h1 {
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-top: 0;
-        margin-bottom: 0;
-      }
-      hr {
-        margin: 30px auto;
-      }
-      p {
-        font-weight: 300;
-        color: rgba(white, 70%);
-        font-size: 16px;
-        margin-bottom: 50px;
+        font-size: 50px;
+        margin: 0 auto;
+
+        //color: #49773B; //#F2E999;
+
+        text-shadow: 0px 3px 3px #000;
       }
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: $screen-sm-min) {
     min-height: 100%;
+
     .header-content {
+      @include transform( translateY(-50%) );
       position: absolute;
       top: 50%;
-      -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
       padding: 0 50px;
+
       .header-content-inner {
         max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
-        p {
-          font-size: 18px;
-          max-width: 80%;
-          margin-left: auto;
-          margin-right: auto;
+
+        h1 {
+          font-size: 80px;
         }
       }
     }
   }
 }
 
-// Sections
 
-.section-heading {
-  margin-top: 0;
-}
+//
+// Reservation
+// -----------------------------------------------------------------------------
+//
 
-.service-box {
-  max-width: 400px;
-  margin: 50px auto 0;
-  @media (min-width: 992px) {
-    margin: 20px auto 0;
-  }
-  p {
-    margin-bottom: 0;
+.reservation-box {
+  @include relative-box();
+  padding: 100px 30px;
+
+  a.btn {
+    color: $theme-white;
   }
 }
 
-.portfolio-box {
+//
+// Promotion
+// -----------------------------------------------------------------------------
+//
+
+.promotion-box {
+  @include relative-box();
+  padding: 75px 30px;
+
+  .media-left {
+    min-width: 100px;
+    text-align: center;
+  }
+
+}
+
+
+//
+// Subscribe
+// -----------------------------------------------------------------------------
+//
+
+.subscribe-box {
+  @include relative-box();
+  padding: 75px 30px;
+}
+
+//
+// Social
+// -----------------------------------------------------------------------------
+//
+
+.social-box {
+  @include relative-box();
+  padding: 75px 30px;
+}
+
+.social-item {
+  min-height: 130px;
+}
+
+
+
+//
+// Menu
+// -----------------------------------------------------------------------------
+//
+
+.menu-box {
+  @include relative-box();
+  padding: 15px 30px;
+}
+
+
+//
+// Gallery
+// -----------------------------------------------------------------------------
+//
+
+.gallery-box {
   position: relative;
   display: block;
   max-width: 650px;
   margin: 0 auto;
-  .portfolio-box-caption {
+
+  .gallery-box-caption {
     color: white;
     opacity: 0;
     display: block;
-    background: rgba($theme-primary, 90%);
+    background: rgba($theme-red, 90%);
     position: absolute;
     bottom: 0;
     text-align: center;
     width: 100%;
     height: 100%;
 
-    @include transition-all;
+    @include transition();
 
-    .portfolio-box-caption-content {
+    .gallery-box-caption-content {
       width: 100%;
       text-align: center;
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
-      .project-category,
-      .project-name {
-        @include sans-serif-font;
+
+      @include transform( translateY(-50%) );
+
+      .gallery-category,
+      .gallery-name {
+        font: $font-family-sans-serif;
         padding: 0 15px;
       }
-      .project-category {
+      .gallery-category {
         text-transform: uppercase;
         font-weight: 600;
         font-size: 14px;
       }
-      .project-name {
+      .gallery-name {
         font-size: 18px;
       }
     }
   }
   &:hover {
-    .portfolio-box-caption {
+    .gallery-box-caption {
       opacity: 1;
     }
   }
+
   @media (min-width: 768px) {
-    .portfolio-box-caption {
-      .portfolio-box-caption-content {
+    .gallery-box-caption {
+      .gallery-box-caption-content {
         .project-category {
           font-size: 16px;
         }
@@ -313,33 +359,41 @@ header {
   }
 }
 
-.call-to-action {
-  h2 {
-    margin: 0 auto 20px;
-  }
+
+//
+// MAP
+// -----------------------------------------------------------------------------
+//
+
+#map {
+  @include relative-box();
+  @include size(100%, 400px);
+  background: $theme-white;
 }
 
+
+//
 // Bootstrap Overrides
-.text-primary {
-  color: $theme-primary;
-}
+// -----------------------------------------------------------------------------
+//
 
 .no-gutter > [class*='col-'] {
-  padding-right:0;
-  padding-left:0;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 // Button Styles
 .btn-default {
-  @include button-variant($theme-dark, white, white);
+  @include button-variant($theme-brown, white, white);
 }
 
 .btn-primary {
-  @include button-variant(white, $theme-primary, $theme-primary);
+  @include button-variant(white, $theme-red, $theme-red);
 }
 
 .btn {
-  @include sans-serif-font;
+  font: $font-family-sans-serif;
+
   border: none;
   border-radius: 300px;
   font-weight: 700;
@@ -348,32 +402,4 @@ header {
 
 .btn-xl {
   padding: 15px 30px;
-}
-
-// Extras
-// -- Highlight Color Customization
-::-moz-selection {
-  color: white;
-  text-shadow: none;
-  background: $theme-dark;
-}
-
-::selection {
-  color: white;
-  text-shadow: none;
-  background: $theme-dark;
-}
-
-img::selection {
-  color: white;
-  background: transparent;
-}
-
-img::-moz-selection {
-  color: white;
-  background: transparent;
-}
-
-body {
-  webkit-tap-highlight-color: $theme-dark;
 }

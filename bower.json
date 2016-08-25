@@ -17,6 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "^3.3.6"
+    "bootstrap-sass": "^3.3.6",
+    "animate.css": "^3.5.1",
+    "ekko-lightbox": "^4.0.2"
   }
 }

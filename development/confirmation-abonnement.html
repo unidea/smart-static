@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    @@include('partials/head.html', {
+        "title": "Confirmation d'abonnement",
+        "description": "Confirmation d'abonnement à la liste de distribution de Pépé Trattoria"
+    })
+
+</head>
+<body id="page-top">
+<!--<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">-->
+
+    @@include('partials/sub-navigation.html')
+
+    @@include('partials/header.html')
+
+    <section class="page-section first-section section-brown">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Confirmation d'abonnement</h2>
+                    <hr class="ornament pale">
+                    <p>Merci d'avoir rempli le formulaire d'abonnement à notre liste de distribution.</p>
+                    <p class="lead">Afin de respecter la loi canadienne anti-pourriel (LCAP), vous recevrez sous peu un courriel vous demandant de confirmer votre abonnement.</p>
+                    <hr class="ornament pale">
+                    <p>Pour votre information :</p>
+                    <ul class="list-unstyled">
+                        <li><a href="http://fightspam.gc.ca/eic/site/030.nsf/fra/h_00211.html">La Loi canadienne anti-pourriel (Gouvernement du Canada)</a></li>
+                        <li><a href="http://crtc.gc.ca/fra/internet/anti.htm">Conseil de la radiodiffusion et des télécommunications canadiennes</a></li>
+                        <li><a href="https://www.priv.gc.ca/resource/op-vpel/casl_guide_f.pdf">Commissariat à la protection de la vie privée du Canada</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @@include('partials/address.html')
+
+    @@include('partials/map.html')
+
+    @@include('partials/footer.html')
+
+    @@include('partials/footer-scripts.html')
+
+</body>
+</html>

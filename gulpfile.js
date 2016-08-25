@@ -3,6 +3,7 @@
 // Gulp related requirements
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const cache = require('gulp-cached');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
@@ -20,6 +21,7 @@ const BASES = {
 const PATHS = {
   copied: [
     `${BASES.dev}/bower_components`,
+    `${BASES.dev}/pdf`,
     `${BASES.dev}/fonts`,
     `${BASES.dev}/vendor`
   ],
@@ -49,7 +51,13 @@ function deleteBuild (callback) {
   fs.remove(BASES.build, callback);
 };
 
-// Process Images and return the stream.
+// Copy Files and return the stream.
+function copyFiles () {
+  return gulp.src(PATHS.copied)
+    .pipe(gulp.dest(BASES.build));
+};
+
+// Copy Images.
 function copyImages (callback) {
   let src = `${BASES.dev}/images`;
   let dest = `${BASES.build}/images`
@@ -60,12 +68,6 @@ function copyImages (callback) {
   }, callback);
 };
 
-// Copy Files and return the stream.
-function copyFiles () {
-  return gulp.src(PATHS.copied)
-    .pipe(gulp.dest(BASES.build));
-};
-
 // Process Files and return the stream.
 function processFiles () {
   let path = [`${BASES.dev}/**/*`].concat(
@@ -74,6 +76,7 @@ function processFiles () {
     negativizeGlobs(PATHS.images),
     negativizeGlobs(PATHS.partials)
   );
+  let dest = `${BASES.build}/`;
 
   return gulp.src(path)
     //.pipe(changed(BASES.build))
@@ -95,7 +98,7 @@ function processScripts () {
 // Process SCSS files and return the stream.
 function processStyles () {
   return gulp.src(PATHS.styles)
-    .pipe(cache('styles-cache'))
+    //.pipe(cache('styles-cache'))
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('.'))
